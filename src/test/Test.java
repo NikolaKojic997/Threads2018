@@ -17,19 +17,27 @@ public class Test {
     
     private Singer pattiSmith;
     private Singer bruceSpringsteen;
+    private Singer rogerWaters;
+  
     
     private void initializeSingingInThreads() {
         String lyrics1 = "Because the night";
         String lyrics2 = "Belongs to lovers";
+        String lyrics3 = "all in all it's just another brick in the wall";
+      
         
         boolean stopIt = false;
-        Synchronizer synch = new Synchronizer(true);
+        Synchronizer synch = new Synchronizer(0);
         
         Performance firstVoicePerformance = new Performance(lyrics1, 1500);
         Performance secondVoicePerformance = new Performance(lyrics2, 1500);
+        Performance thirdVoicePerformance = new Performance(lyrics3, 1500);
+       
         
         pattiSmith = new Singer("Patti Smith", Voice.FIRST, firstVoicePerformance, stopIt, synch);
         bruceSpringsteen = new Singer("Bruce Springsteen", Voice.SECOND, secondVoicePerformance, stopIt, synch);
+        rogerWaters = new Singer("Roger Waters", Voice.THIRD, thirdVoicePerformance, stopIt, synch);
+        
     }
     
     public void testSingInThreads() {
@@ -38,11 +46,13 @@ public class Test {
         
         pattiSmith.start();
         bruceSpringsteen.start();
+        rogerWaters.start();
         
         IN.nextLine();
         pattiSmith.setStopIt(true);
         bruceSpringsteen.setStopIt(true);
-        
+        rogerWaters.setStopIt(true);
+    
     }
     
     public void simpleDelay() {
