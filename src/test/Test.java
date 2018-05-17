@@ -6,6 +6,8 @@ package test;
 
 import java.util.Scanner;
 
+import javax.swing.JTextPane;
+
 import music.Performance;
 import music.Singer;
 import music.Synchronizer;
@@ -18,16 +20,19 @@ public class Test {
     private Singer pattiSmith;
     private Singer bruceSpringsteen;
     private Singer rogerWaters;
+ 
+    
+   
   
     
-    private void initializeSingingInThreads() {
+    private  void initializeSingingInThreads(JTextPane textPane) {
         String lyrics1 = "Because the night";
         String lyrics2 = "Belongs to lovers";
         String lyrics3 = "all in all it's just another brick in the wall";
       
         
         boolean stopIt = false;
-        Synchronizer synch = new Synchronizer(0);
+        Synchronizer synch = new Synchronizer(0, textPane);
         
         Performance firstVoicePerformance = new Performance(lyrics1, 1500);
         Performance secondVoicePerformance = new Performance(lyrics2, 1500);
@@ -40,20 +45,23 @@ public class Test {
         
     }
     
-    public void testSingInThreads() {
+    public void testSingInThreads(JTextPane textPane)  {
         
-        initializeSingingInThreads();
+        initializeSingingInThreads(textPane);
         
         pattiSmith.start();
         bruceSpringsteen.start();
         rogerWaters.start();
-        
-        IN.nextLine();
-        pattiSmith.setStopIt(true);
-        bruceSpringsteen.setStopIt(true);
-        rogerWaters.setStopIt(true);
-    
+     
     }
+    
+    public void stopTheTreads() {
+    	pattiSmith.setStopIt(true);
+     	bruceSpringsteen.setStopIt(true);
+     	rogerWaters.setStopIt(true);
+    }
+    
+ 
     
     public void simpleDelay() {
         long l1 = System.currentTimeMillis();
